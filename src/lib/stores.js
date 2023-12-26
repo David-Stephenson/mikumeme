@@ -19,3 +19,5 @@ function localStore(key, initialValue) {
 
 export const pipedInstances = localStore('pipedInstances', []);
 export const videoHistory = localStore('videoHistory', []);
+
+export let loadingVideo = writable(false);

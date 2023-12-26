@@ -3,7 +3,7 @@
 	import Hls from 'hls.js';
 	import youtubeId from '$lib/youtubeId';
 	import getPiped from '$lib/getPiped';
-	import { videoHistory } from '$lib/stores';
+	import { videoHistory, loadingVideo } from '$lib/stores';
 
 	const videos = [
 		'https://www.youtube.com/watch?v=Hldi8HhkVqc',
@@ -104,6 +104,8 @@
 	}
 
 	async function loadVideo(videoUrl) {
+		loadingVideo.set(true);
+
 		data = await getPiped(youtubeId(videoUrl));
 
 		console.log(`Uploader: ${data.uploader}\nVideo: ${data.title}\nUrl: ${videoUrl}`);
@@ -113,11 +115,13 @@
 			hls.loadSource(data.hlsUrl);
 			hls.attachMedia(videoElement);
 			hls.on(Hls.Events.MANIFEST_PARSED, function () {
+				loadingVideo.set(false);
 				videoElement.play();
 			});
 		} else if (videoElement.canPlayType('application/vnd.apple.mpegurl')) {
 			videoElement.src = data.hlsUrl;
 			videoElement.addEventListener('loadedmetadata', function () {
+				loadingVideo.set(false);
 				videoElement.play();
 			});
 		}
