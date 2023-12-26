@@ -14,7 +14,7 @@
 		'https://www.youtube.com/watch?v=pd6dCUiqo2w',
 		'https://www.youtube.com/watch?v=HZxjYzX3R7Y',
 		'https://www.youtube.com/watch?v=caiV8rLZw18',
-		'https://www.youtube.com/watch?v=kPlU9O3C5kg',
+		'https://www.youtube.com/watch?v=AnmdoUgFbTE',
 		'https://www.youtube.com/watch?v=RflNmXjj29I',
 		'https://www.youtube.com/watch?v=j3hf5dSBRnk',
 		'https://www.youtube.com/watch?v=jrgO_9ey53M',
@@ -42,10 +42,19 @@
 		'https://www.youtube.com/shorts/496piVh2YMo',
 		'https://www.youtube.com/watch?v=egcfC7PCneQ',
 		'https://www.youtube.com/shorts/KUD0UH7R1vQ',
-		'https://www.youtube.com/watch?v=lwgjnKf8tuQ'
+		'https://www.youtube.com/watch?v=lwgjnKf8tuQ',
+		'https://www.youtube.com/watch?v=LocruwYJrGw',
+		'https://www.youtube.com/watch?v=Jkz1iqCA8u4',
+		'https://www.youtube.com/watch?v=Jkz1iqCA8u4',
+		'https://www.youtube.com/watch?v=3cRwgDwnT38',
+		'https://www.youtube.com/watch?v=XD0tiUPFqcA',
+		'https://www.youtube.com/watch?v=qF69HaEaBsM',
+		'https://www.youtube.com/watch?v=oZHHTKfbQUY',
+		'https://www.youtube.com/watch?v=QFPXdI3lVMI',
+		'https://www.youtube.com/watch?v=olIIbJmleEY'
 	];
 
-	let videoTitle;
+	let data;
 	let videoElement;
 	let hls;
 
@@ -86,9 +95,8 @@
 	}
 
 	async function loadVideo(videoUrl) {
-		const data = await getPiped(youtubeId(videoUrl));
+		data = await getPiped(youtubeId(videoUrl));
 
-		videoTitle = data.title;
 		console.log(`Uploader: ${data.uploader}\nVideo: ${data.title}\nUrl: ${videoUrl}`);
 
 		if (Hls.isSupported()) {
@@ -124,13 +132,20 @@
 	on:keydown={handleKeyPress}
 />
 
-<svelte:head>
-	<title>{videoTitle} | miku.meme</title>
-</svelte:head>
-
 <div class="flex items-center justify-center h-screen">
 	<!-- svelte-ignore a11y-media-has-caption -->
 	<video bind:this={videoElement} autoplay loop class="w-screen max-h-screen">
-		Your browser does not support the video tag.
+		<p>
+			It's {new Date().getFullYear()} and you're still using a browser that doesn't support the video
+			tag, smh.
+		</p>
 	</video>
 </div>
+
+{#if data}
+	<!-- Credits section -->
+	<div class="h-[4vh] text-white">
+		<p>{data.title}</p>
+		<p>{data.uploader}</p>
+	</div>
+{/if}
