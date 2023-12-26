@@ -90,7 +90,7 @@
 	});
 
 	onMount(async () => {
-		const initialVideoUrl = videos[0];
+		const initialVideoUrl = videos[Math.floor(Math.random() * videos.length)];
 		history.push(initialVideoUrl);
 		await loadVideo(initialVideoUrl);
 	});
