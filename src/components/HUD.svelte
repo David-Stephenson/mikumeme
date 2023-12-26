@@ -7,7 +7,7 @@
 
 <section>
 	<div>
-		<h1 class={color}>Press 'M' for more Miku memes</h1>
+		<h1 class="{color} font-bold text-2xl">Press 'M' for more Miku memes</h1>
 	</div>
 </section>
 
