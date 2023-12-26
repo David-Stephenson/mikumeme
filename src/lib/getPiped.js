@@ -4,8 +4,9 @@ async function getPiped(videoID) {
 	const response = await fetch(`https://pipedapi.kavin.rocks/streams/${videoID}`);
 
 	if (!response.ok) {
+		console.log(response);
 		const errorMessage = `Error: Unable to fetch video data. Status: ${response.status} ${response.statusText}`;
-		toast.push(errorMessage);
+		toast.push(errorMessage, { initial: 0 });
 		throw new Error(errorMessage);
 	}
 
