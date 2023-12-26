@@ -1,8 +1,15 @@
+import { toast } from '@zerodevx/svelte-toast';
+
 async function getPiped(videoID) {
 	const response = await fetch(`https://pipedapi.kavin.rocks/streams/${videoID}`);
-	const data = await response.json();
 
-	console.log(data);
+	if (!response.ok) {
+		const errorMessage = `Error: Unable to fetch video data. Status: ${response.status} ${response.statusText}`;
+		toast.push(errorMessage);
+		throw new Error(errorMessage);
+	}
+
+	const data = await response.json();
 
 	const hlsUrl = data.hls;
 	const thumbnailUrl = data.thumbnailUrl;
