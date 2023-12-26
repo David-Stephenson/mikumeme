@@ -21,7 +21,16 @@
 		'https://www.youtube.com/watch?v=Y5bean7G1a8',
 		'https://www.youtube.com/watch?v=wFqkHVLa2Vo',
 		'https://www.youtube.com/watch?v=vW9_5giCK1I',
-		'https://www.youtube.com/watch?v=fe28jusRess'
+		'https://www.youtube.com/watch?v=fe28jusRess',
+		'https://www.youtube.com/watch?v=rf5U0-71P8Y',
+		'https://www.youtube.com/watch?v=pG35AYXAnTw',
+		'https://www.youtube.com/watch?v=qh-EqX6pSzQ',
+		'https://www.youtube.com/watch?v=PyX5_mtx86c',
+		'https://www.youtube.com/watch?v=cTVM2cQ3JI0',
+		'https://www.youtube.com/watch?v=5eUwrEUT70g',
+		'https://www.youtube.com/watch?v=rxiSecU4EZg',
+		'https://www.youtube.com/watch?v=PEwCB_ci7nE',
+		'https://www.youtube.com/watch?v=bPdv_HMNunI'
 	];
 
 	let videoTitle;
