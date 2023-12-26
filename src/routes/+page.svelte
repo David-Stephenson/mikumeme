@@ -39,6 +39,11 @@
 
 <svelte:head>
 	<title>miku.meme</title>
+	<script
+		defer
+		data-domain="miku.meme"
+		src="https://plausible.stephenson.systems/js/script.js"
+	></script>
 </svelte:head>
 
 <div class="flex items-center justify-center h-screen bg-black">
