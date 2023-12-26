@@ -30,7 +30,19 @@
 		'https://www.youtube.com/watch?v=fiCRhszDHlM',
 		'https://www.youtube.com/watch?v=rxiSecU4EZg',
 		'https://www.youtube.com/watch?v=PEwCB_ci7nE',
-		'https://www.youtube.com/watch?v=bPdv_HMNunI'
+		'https://www.youtube.com/watch?v=bPdv_HMNunI',
+		'https://www.youtube.com/watch?v=L5sNq0HpHuE',
+		'https://www.youtube.com/watch?v=9kWCDbxnWKo',
+		'https://www.youtube.com/watch?v=bU5rv7WfK30',
+		'https://www.youtube.com/watch?v=0pCznUUkY6k',
+		'https://www.youtube.com/watch?v=osP5IkxsQ0g',
+		'https://www.youtube.com/watch?v=PWtb991Y6uc',
+		'https://www.youtube.com/watch?v=iu88uIvwpgg',
+		'https://www.youtube.com/watch?v=whKNCs1nym4',
+		'https://www.youtube.com/shorts/496piVh2YMo',
+		'https://www.youtube.com/watch?v=egcfC7PCneQ',
+		'https://www.youtube.com/shorts/KUD0UH7R1vQ',
+		'https://www.youtube.com/watch?v=lwgjnKf8tuQ'
 	];
 
 	let videoTitle;
