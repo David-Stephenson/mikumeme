@@ -49,29 +49,40 @@
 	let videoElement;
 	let hls;
 
-	let history;
 	videoHistory.subscribe((value) => {
-		history = value;
+		if (value.length > 3) {
+			videoHistory.update((history) => history.slice(1));
+		}
 	});
 
 	function handleInteraction() {
+		console.log('User interaction detected');
 		videoElement.play();
 	}
 
 	function handleKeyPress(event) {
 		if (event.key === 'm' || event.key === 'M') {
-			let randomIndex;
+			randomVideo();
+		}
+	}
+
+	function randomVideo() {
+		let randomIndex;
+		videoHistory.update((history) => {
 			do {
 				randomIndex = Math.floor(Math.random() * videos.length);
 			} while (history.includes(videos[randomIndex]));
 
 			const videoUrl = videos[randomIndex];
-			history.push(videoUrl);
-			if (history.length > 3) {
-				history.shift(); // remove the oldest video from the history
+			const newHistory = [...history, videoUrl];
+
+			if (newHistory.length > 3) {
+				newHistory.shift();
 			}
-			loadVideo(videoUrl);
-		}
+
+			return newHistory;
+		});
+		loadVideo(videos[randomIndex]);
 	}
 
 	async function loadVideo(videoUrl) {
@@ -102,9 +113,7 @@
 	});
 
 	onMount(async () => {
-		const initialVideoUrl = videos[Math.floor(Math.random() * videos.length)];
-		history.push(initialVideoUrl);
-		await loadVideo(initialVideoUrl);
+		randomVideo();
 	});
 </script>
 
