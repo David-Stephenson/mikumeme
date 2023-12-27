@@ -60,7 +60,19 @@
 		'https://www.youtube.com/watch?v=aF75HlzopQ0',
 		'https://www.youtube.com/watch?v=SHt3a-KXce0',
 		'https://www.youtube.com/watch?v=H38s2SVZN8k',
-		'https://www.youtube.com/watch?v=NZaly1mf2Tg'
+		'https://www.youtube.com/watch?v=NZaly1mf2Tg',
+		'https://www.youtube.com/watch?v=mpbzbf4QKwA',
+		'https://www.youtube.com/watch?v=aZgyNVGj7ms',
+		'https://www.youtube.com/watch?v=MkwH-MPqOpk',
+		'https://www.youtube.com/watch?v=EE1O4f4DH4M',
+		'https://www.youtube.com/watch?v=yPuI4l0jK7s',
+		'https://www.youtube.com/watch?v=Kr9xoRtD4b8',
+		'https://www.youtube.com/watch?v=ehX1m5xOCBU',
+		'https://www.youtube.com/watch?v=ueqHQjKvUmM',
+		'https://www.youtube.com/watch?v=gnA-zYXHn5I',
+		'https://www.youtube.com/watch?v=9svdNGVav7k',
+		'https://www.youtube.com/watch?v=ctUmcUUJfe4',
+		'https://www.youtube.com/watch?v=cbGvGaA_cbY'
 	];
 
 	let data;
