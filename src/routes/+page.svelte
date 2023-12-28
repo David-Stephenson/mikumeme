@@ -1,9 +1,13 @@
 <script>
-	import { onMount, onDestroy } from 'svelte';
-	import Hls from 'hls.js';
+	import { onMount } from 'svelte';
 	import youtubeId from '$lib/youtubeId';
 	import getPiped from '$lib/getPiped';
-	import { videoHistory, loadingVideo } from '$lib/stores';
+	import { videoHistory, loadingVideo, currentVideo } from '$lib/stores';
+	import randomNumber from '$lib/randomNumber';
+	import Player from '$components/Player.svelte';
+
+	let data;
+	let hlsUrl;
 
 	const videos = [
 		'https://www.youtube.com/watch?v=Hldi8HhkVqc',
@@ -72,105 +76,68 @@
 		'https://www.youtube.com/watch?v=gnA-zYXHn5I',
 		'https://www.youtube.com/watch?v=9svdNGVav7k',
 		'https://www.youtube.com/watch?v=ctUmcUUJfe4',
-		'https://www.youtube.com/watch?v=cbGvGaA_cbY'
+		'https://www.youtube.com/watch?v=cbGvGaA_cbY',
+		'https://www.youtube.com/watch?v=2A6hP4Z0izk',
+		'https://www.youtube.com/watch?v=3D88XvzbQGI',
+		'https://www.youtube.com/watch?v=EFl9jtfjF8Q',
+		'https://www.youtube.com/watch?v=sNRIuEYF0c4',
+		'https://www.youtube.com/watch?v=-mr-q5FlFyI',
+		'https://www.youtube.com/watch?v=Nuo-KG9zsiQ',
+		'https://www.youtube.com/watch?v=vgvY18QJdTI',
+		'https://www.youtube.com/watch?v=LnnUZyqCoNk',
+		'https://www.youtube.com/watch?v=ZP9pEtUl580',
+		'https://www.youtube.com/watch?v=BkwKMQ3dL7Q',
+		'https://www.youtube.com/watch?v=pm9ZI7upVmI',
+		'https://www.youtube.com/watch?v=w94Y4f0z2qo',
+		'https://www.youtube.com/watch?v=rqX5-_Y5-Qc',
+		'https://www.youtube.com/watch?v=mVqjUzisfLo'
 	];
-
-	let data;
-	let videoElement;
-	let hls;
+	const maxHistoryLength = 15;
 
 	videoHistory.subscribe((value) => {
-		if (value.length > 3) {
+		if (value.length > maxHistoryLength) {
 			videoHistory.update((history) => history.slice(1));
 		}
 	});
 
-	function handleInteraction() {
-		console.log('User interaction detected');
-		videoElement.play();
-	}
-
 	function handleKeyPress(event) {
-		if (event.key === 'm' || event.key === 'M') {
+		if (event.key.toLowerCase() === 'm') {
 			randomVideo();
 		}
 	}
 
-	function randomVideo() {
+	async function randomVideo() {
 		let randomIndex;
 		videoHistory.update((history) => {
 			do {
-				randomIndex = Math.floor(Math.random() * videos.length);
+				randomIndex = randomNumber(videos.length);
 			} while (history.includes(videos[randomIndex]));
 
-			const videoUrl = videos[randomIndex];
-			const newHistory = [...history, videoUrl];
-
-			if (newHistory.length > 3) {
-				newHistory.shift();
-			}
-
-			return newHistory;
+			return [...history, videos[randomIndex]].slice(-maxHistoryLength);
 		});
-		loadVideo(videos[randomIndex]);
-	}
 
-	async function loadVideo(videoUrl) {
 		loadingVideo.set(true);
-
+		const videoUrl = videos[randomIndex];
 		data = await getPiped(youtubeId(videoUrl));
+		currentVideo.set({
+			title: data.title,
+			uploader: data.uploader,
+			videoUrl: videoUrl,
+			uploaderUrl: data.uploaderUrl
+		});
 
+		hlsUrl = data.hlsUrl;
 		console.log(`Uploader: ${data.uploader}\nVideo: ${data.title}\nUrl: ${videoUrl}`);
-
-		if (Hls.isSupported()) {
-			hls = new Hls();
-			hls.loadSource(data.hlsUrl);
-			hls.attachMedia(videoElement);
-			hls.on(Hls.Events.MANIFEST_PARSED, function () {
-				loadingVideo.set(false);
-				videoElement.play();
-			});
-		} else if (videoElement.canPlayType('application/vnd.apple.mpegurl')) {
-			videoElement.src = data.hlsUrl;
-			videoElement.addEventListener('loadedmetadata', function () {
-				loadingVideo.set(false);
-				videoElement.play();
-			});
-		}
 	}
 
-	onDestroy(() => {
-		if (hls) {
-			hls.destroy();
-		}
-	});
-
-	onMount(async () => {
-		randomVideo();
-	});
+	onMount(randomVideo);
 </script>
 
-<!-- Detect User Interactions -->
-<svelte:window
-	on:scroll={handleInteraction}
-	on:click={handleInteraction}
-	on:keydown={handleKeyPress}
-/>
+<!-- Detect keydown -->
+<svelte:window on:keydown={handleKeyPress} />
 
-<div class="flex items-center justify-center h-screen">
-	<!-- svelte-ignore a11y-media-has-caption -->
-	<video bind:this={videoElement} autoplay loop class="w-screen max-h-screen">
-		<p>
-			It's {new Date().getFullYear()} and you're still using a browser that doesn't support the video
-			tag, smh.
-		</p>
-	</video>
-</div>
-
-{#if data}
-	<!-- Credits section -->
-	<div class="h-[4vh] text-white">
-		<p>{data.title}</p>
-		<p>{data.uploader}</p>
+<section class="bg-black">
+	<div class="flex items-center justify-center h-screen">
+		<Player {hlsUrl} />
 	</div>
-{/if}
+</section>

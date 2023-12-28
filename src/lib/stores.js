@@ -21,3 +21,4 @@ export const pipedInstances = localStore('pipedInstances', []);
 export const videoHistory = localStore('videoHistory', []);
 
 export let loadingVideo = writable(false);
+export let currentVideo = writable({});

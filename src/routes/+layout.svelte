@@ -5,6 +5,8 @@
 
 	import '../app.pcss';
 
+	let isLoading = true;
+
 	onMount(() => {
 		console.log(
 			'%c miku.meme ',
@@ -24,8 +26,8 @@
 
 <SvelteToast />
 
-<section class="bg-black">
-	<div class="absolute z-50 right-0 bottom-0">
+<section>
+	<div class="absolute w-screen z-50 bottom-0">
 		<HUD />
 	</div>
 	<slot />
